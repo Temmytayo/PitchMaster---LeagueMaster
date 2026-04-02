@@ -9,5 +9,9 @@ namespace OldTakers.Api.Controllers;
 public class ContactMessagesController(LeagueService service) : ControllerBase
 {
     [HttpPost]
-    public IActionResult Post([FromBody] ContactMessageDto dto) => Created("", service.CreateContactMessage(dto));
+    public IActionResult Post([FromBody] ContactMessageDto dto)
+    {
+        if (!ModelState.IsValid) return ValidationProblem(ModelState);
+        return Created("", service.CreateContactMessage(dto));
+    }
 }

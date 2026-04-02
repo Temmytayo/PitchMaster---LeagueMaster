@@ -8,11 +8,21 @@ namespace OldTakers.Api.Controllers;
 [Route("api/[controller]")]
 public class PlayerRegistrationsController(LeagueService service) : ControllerBase
 {
+    [HttpGet]
+    public IActionResult Get() => Ok(service.GetPlayerRegistrations());
+
     [HttpPost]
     public IActionResult Post([FromBody] PlayerRegistrationDto dto)
     {
-        var age = (int)((DateTime.UtcNow - dto.DateOfBirth).TotalDays / 365.25);
+        if (!ModelState.IsValid) return ValidationProblem(ModelState);
+
+        var today = DateTime.UtcNow.Date;
+        var age = today.Year - dto.DateOfBirth.Year;
+        if (dto.DateOfBirth.Date > today.AddYears(-age)) age--;
+
         if (age < 35) return BadRequest("Adult over 35 league requirement not met.");
+        if (!dto.WaiverAccepted || !dto.ConductAccepted) return BadRequest("Waiver and code of conduct acceptance are required.");
+
         return Created("", service.CreatePlayerRegistration(dto));
     }
 }

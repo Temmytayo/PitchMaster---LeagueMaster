@@ -11,7 +11,8 @@ const links = [
   ['/standings', 'Standings'],
   ['/sponsors', 'Sponsors'],
   ['/news', 'News'],
-  ['/contact', 'Contact']
+  ['/contact', 'Contact'],
+  ['/growth-strategy', 'Growth']
 ];
 
 export default function Navbar() {
