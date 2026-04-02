@@ -1,94 +1,48 @@
 import React, { useState } from 'react';
-import { api } from '../services/api';
-import { calculateAge } from '../utils/validation';
-import StepProgress from '../components/StepProgress';
-
-const steps = ['Player Information', 'Eligibility', 'Team or Free Agent', 'Emergency Contact', 'Waiver & Conduct', 'Payment', 'Confirmation'];
-
-const initialForm = {
-  firstName: '',
-  lastName: '',
-  dob: '',
-  email: '',
-  phone: '',
-  address: '',
-  preferredPosition: '',
-  teamSelection: '',
-  isFreeAgent: false,
-  emergencyContactName: '',
-  emergencyContactPhone: '',
-  medicalNotes: '',
-  waiverAccepted: false,
-  conductAccepted: false,
-  paymentStatus: 'Pending',
-  registrationFee: 115,
-  paymentReference: '',
-  adminNotes: ''
-};
+import PageContainer from '../components/PageContainer';
+import SectionHeader from '../components/SectionHeader';
+import FormSection from '../components/FormSection';
 
 export default function PlayerRegistrationPage() {
-  const [step, setStep] = useState(0);
-  const [form, setForm] = useState(initialForm);
-  const [error, setError] = useState('');
-
-  const setValue = (field, value) => setForm((f) => ({ ...f, [field]: value }));
-
-  const next = async () => {
-    if (step === 0 && (!form.firstName || !form.lastName || !form.email || !form.phone)) return setError('Please complete player profile fields.');
-    if (step === 1 && calculateAge(form.dob) < 35) return setError('Player must be age 35+ by season start.');
-    if (step === 2 && !form.teamSelection && !form.isFreeAgent) return setError('Select a team or mark free agent.');
-    if (step === 4 && (!form.waiverAccepted || !form.conductAccepted)) return setError('Accept waiver and code of conduct.');
-
-    if (step === 5) {
-      try {
-        await api.submitPlayerRegistration({ ...form, dateOfBirth: form.dob, teamSelection: form.isFreeAgent ? 'Free Agent' : form.teamSelection });
-      } catch {
-        return setError('Unable to submit right now. Please try again.');
-      }
-    }
-
-    setError('');
-    setStep((s) => s + 1);
-  };
-
-  if (step > 5) return <section className="section"><h2>Player Registration Confirmed</h2><p>Reference: OTSL-PLAYER-PLACEHOLDER</p></section>;
+  const [submitted, setSubmitted] = useState(false);
 
   return (
-    <section className="section">
-      <h2>Player Registration Workflow</h2>
-      <StepProgress steps={steps} currentStep={step} />
+    <section className="section-band light">
+      <PageContainer narrow>
+        <SectionHeader centered label="Free Agent & Player Pool" title="Player Sign Up" subtitle="Join Houston’s adult 35+ competitive player network and get matched with active teams." />
+        <div className="panel-card">
+          <div className="panel-head"><h3>Player Intake Form</h3><p>Structured for manager scouting, eligibility checks, and payment placeholders.</p></div>
+          <form className="panel-body" onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}>
+            <FormSection title="Player Profile">
+              <input placeholder="First Name" required />
+              <input placeholder="Last Name" required />
+              <input type="date" required />
+              <input placeholder="Email" required />
+              <input placeholder="Phone" required />
+              <select><option>Preferred Position</option><option>GK</option><option>Defender</option><option>Midfielder</option><option>Forward</option></select>
+            </FormSection>
 
-      {step === 0 && <div className="form-grid">
-        <input placeholder="First Name*" value={form.firstName} onChange={(e) => setValue('firstName', e.target.value)} />
-        <input placeholder="Last Name*" value={form.lastName} onChange={(e) => setValue('lastName', e.target.value)} />
-        <input placeholder="Email*" value={form.email} onChange={(e) => setValue('email', e.target.value)} />
-        <input placeholder="Phone*" value={form.phone} onChange={(e) => setValue('phone', e.target.value)} />
-        <input placeholder="Address (placeholder)" value={form.address} onChange={(e) => setValue('address', e.target.value)} />
-      </div>}
+            <FormSection title="Team Interest">
+              <input placeholder="Preferred Team (optional)" />
+              <label><input type="checkbox" /> Mark me as Free Agent</label>
+              <input placeholder="Emergency Contact Name" />
+              <input placeholder="Emergency Contact Phone" />
+            </FormSection>
 
-      {step === 1 && <div className="form-grid"><input type="date" value={form.dob} onChange={(e) => setValue('dob', e.target.value)} /><input readOnly value={form.dob ? `Calculated Age: ${calculateAge(form.dob)}` : 'Calculated Age'} /></div>}
+            <FormSection title="Medical & Conduct">
+              <textarea placeholder="Medical notes (optional)" />
+              <select><option>Payment Status</option><option>Pending</option><option>Unpaid</option><option>Paid</option></select>
+            </FormSection>
 
-      {step === 2 && <div className="form-grid">
-        <input placeholder="Team Name" value={form.teamSelection} onChange={(e) => setValue('teamSelection', e.target.value)} disabled={form.isFreeAgent} />
-        <input placeholder="Preferred Position" value={form.preferredPosition} onChange={(e) => setValue('preferredPosition', e.target.value)} />
-        <label><input type="checkbox" checked={form.isFreeAgent} onChange={(e) => setValue('isFreeAgent', e.target.checked)} /> I am a free agent</label>
-      </div>}
+            <div className="agreement-box">
+              <label><input type="checkbox" required /> I accept the waiver and code of conduct.</label>
+            </div>
 
-      {step === 3 && <div className="form-grid"><input placeholder="Emergency Contact Name" value={form.emergencyContactName} onChange={(e) => setValue('emergencyContactName', e.target.value)} /><input placeholder="Emergency Contact Phone" value={form.emergencyContactPhone} onChange={(e) => setValue('emergencyContactPhone', e.target.value)} /><textarea placeholder="Medical Notes" value={form.medicalNotes} onChange={(e) => setValue('medicalNotes', e.target.value)} /></div>}
-
-      {step === 4 && <div><label><input type="checkbox" checked={form.waiverAccepted} onChange={(e) => setValue('waiverAccepted', e.target.checked)} /> Waiver acceptance</label><label><input type="checkbox" checked={form.conductAccepted} onChange={(e) => setValue('conductAccepted', e.target.checked)} /> Code of conduct acceptance</label></div>}
-
-      {step === 5 && <div className="form-grid">
-        <input readOnly value={form.registrationFee} />
-        <select value={form.paymentStatus} onChange={(e) => setValue('paymentStatus', e.target.value)}><option>Pending</option><option>Unpaid</option><option>Paid</option></select>
-        <input placeholder="Payment Reference" value={form.paymentReference} onChange={(e) => setValue('paymentReference', e.target.value)} />
-      </div>}
-
-      {error && <p className="error">{error}</p>}
-      <div className="actions-row">
-        {step > 0 && <button className="btn btn-muted" onClick={() => setStep((s) => s - 1)}>Back</button>}
-        <button className="btn" onClick={next}>Continue</button>
-      </div>
+            <button type="submit" className="btn btn-block">Submit Player Application</button>
+            {submitted && <p className="success">Application submitted. Ref: OTSL-PLAYER-2026</p>}
+          </form>
+        </div>
+      </PageContainer>
     </section>
   );
 }

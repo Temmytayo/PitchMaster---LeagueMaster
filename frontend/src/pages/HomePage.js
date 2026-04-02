@@ -1,50 +1,66 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Section from '../components/Section';
-import { highlights, sponsors } from '../utils/sampleData';
+import PageHero from '../components/PageHero';
+import StatStrip from '../components/StatStrip';
+import PageContainer from '../components/PageContainer';
+import SectionHeader from '../components/SectionHeader';
+import MatchCard from '../components/MatchCard';
+import StandingsTable from '../components/StandingsTable';
+import { schedule, standings } from '../utils/sampleData';
 
 export default function HomePage() {
   return (
     <>
-      <section className="hero sports-hero">
-        <div>
-          <p className="kicker">Houston Adult 35+ Competitive Community League</p>
-          <h1>Old Takers Soccer League</h1>
-          <p>Organized, credible, and community-focused match play for over-35 athletes across Houston.</p>
-          <div className="cta-row">
-            <Link to="/team-registration" className="btn">Register a Team</Link>
-            <Link to="/player-registration" className="btn">Player Sign-Up</Link>
-            <Link to="/schedule" className="btn btn-outline">View Schedule</Link>
-            <Link to="/standings" className="btn btn-outline">View Standings</Link>
+      <PageHero
+        label="Fall 2026 Registration Open"
+        title="Still Got It?"
+        emphasis="Prove It."
+        description="Houston’s premium adult over 35 competitive soccer league. Structured schedule. Verified divisions. Real matchday intensity with community respect."
+        actions={
+          <>
+            <Link className="btn" to="/team-registration">Register Your Team</Link>
+            <Link className="btn btn-secondary" to="/player-registration">Join as Free Agent</Link>
+          </>
+        }
+      >
+        <div className="hero-panel">
+          <h3>Why Old Takers?</h3>
+          <ul>
+            <li>Competitive adult 35+ match environment</li>
+            <li>Organized schedule, standings, and officiating</li>
+            <li>Houston community partnerships and sponsors</li>
+          </ul>
+        </div>
+      </PageHero>
+
+      <StatStrip items={[
+        { icon: '🏟️', value: '3', label: 'Divisions' },
+        { icon: '👥', value: '24+', label: 'Active Teams' },
+        { icon: '📅', value: '10', label: 'Game Season' },
+        { icon: '🧑‍⚖️', value: 'USSF', label: 'Certified Refs' }
+      ]} />
+
+      <section className="section-band light">
+        <PageContainer>
+          <SectionHeader label="Latest Action" title="Matchweek Snapshot" subtitle="Upcoming fixtures and current division leaders." />
+          <div className="latest-grid">
+            <div className="panel-card">
+              <div className="panel-head"><h3>Upcoming Matches</h3></div>
+              <div className="panel-body">
+                {schedule.slice(0, 2).map((m, i) => <MatchCard key={i} match={m} />)}
+                <Link className="text-link" to="/schedule">View Full Schedule →</Link>
+              </div>
+            </div>
+            <div className="panel-card">
+              <div className="panel-head"><h3>Division Leaders</h3></div>
+              <div className="panel-body">
+                <StandingsTable rows={standings.slice(0, 4)} title="Leaders" season="Summer 2026" />
+                <Link className="text-link" to="/standings">Full Standings →</Link>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="hero-stat-grid">
-          <article><strong>10+</strong><span>Houston Venues</span></article>
-          <article><strong>35+</strong><span>Age Verified</span></article>
-          <article><strong>2</strong><span>Competitive Divisions</span></article>
-          <article><strong>1</strong><span>Community Mission</span></article>
-        </div>
+        </PageContainer>
       </section>
-
-      <Section title="Mission Statement">
-        <p>Our mission is to grow the Houston area soccer community through high-level over-35 competition, strong sportsmanship, and fellowship.</p>
-      </Section>
-
-      <Section title="Season Highlights">
-        <ul>{highlights.map((h) => <li key={h}>{h}</li>)}</ul>
-      </Section>
-
-      <Section title="Featured Sponsors">
-        <div className="card-grid">{sponsors.map((s) => <div key={s.name} className="card"><strong>{s.name}</strong><p>{s.tier} Sponsor</p></div>)}</div>
-      </Section>
-
-      <Section title="Latest Updates">
-        <div className="card-grid">
-          <article className="card"><h3>Team Deadline</h3><p>Team entries close May 20.</p></article>
-          <article className="card"><h3>Season Kickoff</h3><p>First matches begin June 2.</p></article>
-          <article className="card"><h3>Manager Briefing</h3><p>Preseason logistics and referee standards shared online.</p></article>
-        </div>
-      </Section>
     </>
   );
 }

@@ -1,33 +1,32 @@
 import React from 'react';
+import PageContainer from '../components/PageContainer';
+import SectionHeader from '../components/SectionHeader';
+import RulesAccordion from '../components/RulesAccordion';
 
-const sections = [
-  ['eligibility', 'Eligibility & Age Requirements', 'Players must be 35+ before season start. Houston area and surrounding regions welcome. Registration and proof of identity required.'],
-  ['rosters', 'Registration, Rosters & Player Passes', 'Roster lock date applies. Team managers submit rosters and player pass/ID placeholders before kickoff.'],
-  ['match', 'Match Format', '11v11, 40-minute halves, FIFA-based laws with league adjustments, and regulated substitutions.'],
-  ['discipline', 'Discipline & Misconduct', 'Yellow/red cards tracked. Referee abuse, fighting, and abusive language result in suspensions and possible expulsion.'],
-  ['forfeits', 'Forfeits & Late Arrival Policy', 'Minimum 7 players required at kickoff. 15-minute grace period. Forfeit score and fee penalties apply.'],
-  ['weather', 'Inclement Weather (Houston Policy)', 'Heat, lightning, and heavy rain protocols apply. Lightning delay minimum 30 minutes after last strike.'],
-  ['appeals', 'Protests & Appeals', 'Formal protests filed within 48 hours with supporting evidence and fee placeholder.'],
-  ['conduct', 'Code of Conduct', 'Managers, players, and spectators must uphold respectful behavior and league community standards.'],
-  ['authority', 'League Authority & Disclaimers', 'League authority is final on competition matters. Injury disclaimer, waiver reference, and rule amendment language included.']
+const ruleItems = [
+  { title: 'Age Eligibility & Verification', content: 'All participants must be 35+ by season start. League ID verification is required before first appearance.' },
+  { title: 'Rosters & Player Registration', content: 'Managers submit active rosters by deadline. Late adds require approval and pass validation.' },
+  { title: 'Match Format & Equipment', content: '11v11 format, 40-minute halves, proper shin guards, matching kits, and referee authority are mandatory.' },
+  { title: 'Substitutions', content: 'Rolling substitutions allowed with referee acknowledgment from technical area.' },
+  { title: 'Discipline & Suspensions', content: 'Card accumulation, straight reds, and referee abuse trigger suspensions and potential review board action.' },
+  { title: 'Forfeits, Reschedules & Weather', content: '7-player minimum, 15-minute grace period, lightning delay protocol, and league-managed reschedule process.' },
+  { title: 'Code of Conduct', content: 'Players, managers, and spectators must maintain competitive respect and community standards.' },
+  { title: 'League Authority & Protests', content: 'Formal protests submitted within 48 hours. League office decisions are final after review.' }
 ];
 
 export default function RulesPage() {
   return (
-    <div className="rules-layout">
-      <aside>
-        <h3>Rule Navigation</h3>
-        {sections.map(([id, title]) => <a key={id} href={`#${id}`}>{title}</a>)}
-      </aside>
-      <div>
-        <div className="callout">Printable league rules layout enabled from browser print mode.</div>
-        {sections.map(([id, title, content]) => (
-          <section key={id} id={id} className="section">
-            <h2>{title}</h2>
-            <p>{content}</p>
-          </section>
-        ))}
-      </div>
-    </div>
+    <section className="section-band light">
+      <PageContainer>
+        <div className="page-top-row">
+          <SectionHeader label="Official Document" title="League Rules & Policies" subtitle="Clear standards for fair competition, safety, and community respect across Houston." />
+          <button className="btn">Download PDF</button>
+        </div>
+        <div className="panel-card">
+          <div className="panel-head"><h3>General Regulations</h3></div>
+          <div className="panel-body"><RulesAccordion items={ruleItems} /></div>
+        </div>
+      </PageContainer>
+    </section>
   );
 }
