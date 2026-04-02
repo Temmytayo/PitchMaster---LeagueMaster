@@ -1,0 +1,18 @@
+:root { --bg:#0f172a; --fg:#f8fafc; --accent:#f97316; --green:#16a34a; --card:#111827; }
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,sans-serif;background:#f3f4f6;color:#111827}
+.navbar{display:flex;gap:1rem;justify-content:space-between;align-items:center;padding:1rem;background:var(--bg);color:var(--fg);position:sticky;top:0}
+.navbar nav{display:flex;gap:.75rem;flex-wrap:wrap}.navbar a{color:#cbd5e1;text-decoration:none}.active-link{color:#fff;font-weight:700}
+.page-container{max-width:1200px;margin:0 auto;padding:1rem}
+.hero{padding:3rem 1rem;border-radius:12px;background:linear-gradient(135deg,var(--bg),var(--green));color:var(--fg);margin-bottom:1rem}
+.section{background:#fff;padding:1rem;margin-bottom:1rem;border-radius:12px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}.card{background:var(--card);color:var(--fg);padding:1rem;border-radius:10px}
+.btn{background:var(--accent);border:none;color:#fff;padding:.6rem 1rem;border-radius:8px;cursor:pointer;text-decoration:none;display:inline-block;margin:.2rem}
+.btn-outline{background:transparent;border:1px solid #fff}.cta-row{display:flex;gap:.5rem;flex-wrap:wrap}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.75rem}.form-grid input,.form-grid textarea,.form-grid select{padding:.6rem;border:1px solid #cbd5e1;border-radius:8px}
+.footer{background:#020617;color:#cbd5e1;padding:1rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}.footer a{color:#fff}
+.rules-layout{display:grid;grid-template-columns:280px 1fr;gap:1rem}.rules-layout aside{position:sticky;top:80px;align-self:start;background:#fff;padding:1rem;border-radius:12px}
+.rules-layout aside a{display:block;margin:.2rem 0}.callout{background:#ffedd5;border-left:4px solid var(--accent);padding:.75rem;border-radius:6px}
+.table-wrap{overflow-x:auto} table{width:100%;border-collapse:collapse} th,td{padding:.5rem;border-bottom:1px solid #e5e7eb;text-align:left}
+.error{color:#b91c1c}.empty-state{padding:2rem;text-align:center}
+@media print {.navbar,.footer{display:none}.section{break-inside:avoid}}
+@media (max-width:900px){.rules-layout{grid-template-columns:1fr}}
