@@ -7,6 +7,7 @@ namespace OldTakers.Api.Services;
 public class LeagueService(LeagueDbContext db)
 {
     public IEnumerable<Team> GetTeams() => db.Teams.OrderBy(t => t.Name).ToList();
+    public IEnumerable<Player> GetPlayers() => db.Players.OrderBy(p => p.LastName).ToList();
     public IEnumerable<Match> GetMatches() => db.Matches.OrderBy(m => m.MatchDateUtc).ToList();
     public IEnumerable<Standing> GetStandings() => db.Standings.OrderByDescending(s => s.Points).ToList();
     public IEnumerable<Sponsor> GetSponsors() => db.Sponsors.OrderBy(s => s.Tier).ToList();
@@ -14,6 +15,15 @@ public class LeagueService(LeagueDbContext db)
     public IEnumerable<LeagueRulesSection> GetRules() => db.LeagueRulesSections.ToList();
     public IEnumerable<TeamRegistration> GetTeamRegistrations() => db.TeamRegistrations.OrderByDescending(t => t.CreatedOnUtc).ToList();
     public IEnumerable<PlayerRegistration> GetPlayerRegistrations() => db.PlayerRegistrations.OrderByDescending(p => p.CreatedOnUtc).ToList();
+    public IEnumerable<ContactMessage> GetContactMessages() => db.ContactMessages.OrderByDescending(c => c.SubmittedOnUtc).ToList();
+
+    // Admin CRUD operations
+    public Team CreateTeam(Team model) { db.Teams.Add(model); db.SaveChanges(); return model; }
+    public Player CreatePlayer(Player model) { db.Players.Add(model); db.SaveChanges(); return model; }
+    public Match CreateMatch(Match model) { db.Matches.Add(model); db.SaveChanges(); return model; }
+    public Standing CreateStanding(Standing model) { db.Standings.Add(model); db.SaveChanges(); return model; }
+    public Sponsor CreateSponsor(Sponsor model) { db.Sponsors.Add(model); db.SaveChanges(); return model; }
+    public NewsPost CreateNews(NewsPost model) { db.NewsPosts.Add(model); db.SaveChanges(); return model; }
 
     public TeamRegistration CreateTeamRegistration(TeamRegistrationDto dto)
     {
@@ -48,9 +58,7 @@ public class LeagueService(LeagueDbContext db)
         });
 
         if (dto.WaiverAccepted)
-        {
             db.WaiverAcceptances.Add(new WaiverAcceptance { RegistrantType = nameof(TeamRegistration), RegistrantId = model.Id });
-        }
 
         db.SaveChanges();
         return model;
@@ -88,9 +96,7 @@ public class LeagueService(LeagueDbContext db)
         });
 
         if (dto.WaiverAccepted)
-        {
             db.WaiverAcceptances.Add(new WaiverAcceptance { RegistrantType = nameof(PlayerRegistration), RegistrantId = model.Id });
-        }
 
         db.SaveChanges();
         return model;
