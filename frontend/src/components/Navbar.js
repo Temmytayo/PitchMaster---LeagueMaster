@@ -7,7 +7,8 @@ const links = [
   ['/schedule', 'Schedule'],
   ['/standings', 'Standings'],
   ['/rules', 'League Rules'],
-  ['/team-registration', 'Register Team']
+  ['/team-registration', 'Register Team'],
+  ['/admin', 'Admin']
 ];
 
 export default function Navbar() {

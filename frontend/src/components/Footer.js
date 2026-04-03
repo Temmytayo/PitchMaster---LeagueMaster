@@ -22,6 +22,7 @@ export default function Footer() {
             <Link to="/team-registration">Register Team</Link>
             <Link to="/player-registration">Player Sign Up</Link>
             <Link to="/standings">Standings</Link>
+            <Link to="/admin">Admin Dashboards</Link>
           </div>
           <div>
             <h5>Contact</h5>
