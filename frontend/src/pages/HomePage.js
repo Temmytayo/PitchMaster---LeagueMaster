@@ -15,7 +15,7 @@ export default function HomePage() {
         label="Fall 2026 Registration Open"
         title="Still Got It?"
         emphasis="Prove It."
-        description="Houston’s premium adult over 35 competitive soccer league. Structured schedule. Verified divisions. Real matchday intensity with community respect."
+        description="Houston’s premier adult 35+ competitive 11v11 soccer league built for players who still train hard, compete with intent, and value organized matchday standards. Old Takers delivers premium field access, certified officiating, reliable scheduling, clear standings, and a strong community culture where serious athletes can keep the game at a high level season after season."
         actions={
           <>
             <Link className="btn" to="/team-registration">Register Your Team</Link>
@@ -26,9 +26,9 @@ export default function HomePage() {
         <div className="hero-panel">
           <h3>Why Old Takers?</h3>
           <ul>
-            <li>Competitive adult 35+ match environment</li>
-            <li>Organized schedule, standings, and officiating</li>
-            <li>Houston community partnerships and sponsors</li>
+            <li>Competitive adult 35+ match environment with clear league standards.</li>
+            <li>Organized schedule, weekly communication, standings integrity, and referee consistency.</li>
+            <li>Houston-wide community partnerships, sponsor support, and long-term league growth planning.</li>
           </ul>
         </div>
       </PageHero>
@@ -42,7 +42,7 @@ export default function HomePage() {
 
       <section className="section-band light">
         <PageContainer>
-          <SectionHeader label="Latest Action" title="Matchweek Snapshot" subtitle="Upcoming fixtures and current division leaders." />
+          <SectionHeader label="Latest Action" title="Matchweek Snapshot" subtitle="Upcoming fixtures and current division leaders, with a clear view of who is in form and where the table battle is tightening." />
           <div className="latest-grid">
             <div className="panel-card">
               <div className="panel-head"><h3>Upcoming Matches</h3></div>

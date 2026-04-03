@@ -17,7 +17,7 @@ export default function SchedulePage() {
     <section className="section-band light">
       <PageContainer>
         <div className="page-top-row">
-          <SectionHeader label="Match Center" title="League Schedule" subtitle="Upcoming matches and recent results across Houston divisions." />
+          <SectionHeader label="Match Center" title="League Schedule" subtitle="Upcoming matches and recent results across Houston divisions, with clear visibility for managers, players, and league staff planning weekly operations." />
           <div className="filters-row">
             <select value={division} onChange={(e) => setDivision(e.target.value)}>
               <option>All</option><option>Premier 35+</option><option>Championship 35+</option>

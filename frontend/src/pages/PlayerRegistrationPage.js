@@ -9,7 +9,7 @@ export default function PlayerRegistrationPage() {
   return (
     <section className="section-band light">
       <PageContainer narrow>
-        <SectionHeader centered label="Free Agent & Player Pool" title="Player Sign Up" subtitle="Join Houston’s adult 35+ competitive player network and get matched with active teams." />
+        <SectionHeader centered label="Free Agent & Player Pool" title="Player Sign Up" subtitle="Join Houston’s adult 35+ competitive player network and enter the organized free-agent and team placement pipeline used by league managers." />
         <div className="panel-card">
           <div className="panel-head"><h3>Player Intake Form</h3><p>Structured for manager scouting, eligibility checks, and payment placeholders.</p></div>
           <form className="panel-body" onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}>

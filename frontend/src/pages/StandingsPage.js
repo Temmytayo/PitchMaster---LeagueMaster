@@ -14,7 +14,7 @@ export default function StandingsPage() {
           centered
           label="Competition Table"
           title="League Table"
-          subtitle="Track position, form, and points across each Old Takers division."
+          subtitle="Track position, form, and points across each Old Takers division with a transparent league table format that is easy to review on desktop and mobile."
         />
 
         <div className="tabs-row">

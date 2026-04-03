@@ -9,7 +9,7 @@ export default function TeamRegistrationPage() {
   return (
     <section className="section-band light">
       <PageContainer narrow>
-        <SectionHeader centered label="Summer 2026 Team Entry" title="Team Registration" subtitle="Apply for Old Takers Houston 35+ competitive division placement." />
+        <SectionHeader centered label="Summer 2026 Team Entry" title="Team Registration" subtitle="Apply for Old Takers Houston 35+ competitive division placement with complete manager, roster, and competition details for league approval." />
         <div className="panel-card">
           <div className="panel-head"><h3>Team Application Form</h3><p>All fields support admin review and payment tracking placeholders.</p></div>
           <form className="panel-body" onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}>

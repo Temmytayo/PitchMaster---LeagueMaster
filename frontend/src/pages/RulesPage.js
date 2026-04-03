@@ -19,7 +19,7 @@ export default function RulesPage() {
     <section className="section-band light">
       <PageContainer>
         <div className="page-top-row">
-          <SectionHeader label="Official Document" title="League Rules & Policies" subtitle="Clear standards for fair competition, safety, and community respect across Houston." />
+          <SectionHeader label="Official Document" title="League Rules & Policies" subtitle="Clear standards for fair competition, player safety, referee respect, and community accountability across the Houston area." />
           <button className="btn">Download PDF</button>
         </div>
         <div className="panel-card">
